@@ -20,12 +20,16 @@ The scanner probes for the following:
 - "rtt_range": shortest and longest round trip time of every IPv4 address
 - "geo_locations": the approximate geographical location of the IPv4 addresses, as listed by the [MaxMind IP Geolocation database](https://maxminddb.readthedocs.io/en/latest/)
 
-## Usage
+## Installation
 You will need to install the [maxminddb](https://maxminddb.readthedocs.io/en/latest/) and [urllib3](https://urllib3.readthedocs.io/en/stable/) libraries to run the scanner.
 
 `$ pip install maxminddb`
 
 `$ pip install urllib3`
+
+Additionally, for geo_locations function, you will need to install a [MaxMind IP Geolocation database](https://networks.cs.northwestern.edu/CS340-w23/project/project%204%20inputs/GeoLite2-City_20201103.tar.gz) (WARNING: this link installs the database). Untar it and place the .mmdb file in the project directory.
+
+## Usage
 
 ### scan.py
 scan.py takes a text file as input and outputs a .json:
