@@ -102,7 +102,10 @@ def rtt_table(data):
 
     master_rows = []
     for website in data:
-        rtt = data[website]["rtt_range"]
+        try:
+            rtt = data[website]["rtt_range"]
+        except:
+            pass
         if rtt == None:
             continue
         row = [website, rtt]

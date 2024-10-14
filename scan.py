@@ -5,6 +5,7 @@ import json
 import time
 import sys
 import re
+import os
 
 # Helps generate JSON dictionary for the output
 def generate_output(scanner_list):
@@ -400,6 +401,9 @@ def rtt_range(domain, scanner_list):
 def geo_locations(reader, scanner_list):
     ip = scanner_list["ipv4_addresses"]
     addresses = []
+    if not ip:
+        scanner_list["geo_locations"] = "no IPv4 addresses"
+        return
     for entry in ip:
         address = ""
         # Find city, province, and country of IP
@@ -435,9 +439,27 @@ def main(input_file, output_file):
 
     domain_list = open(input_file, "r")
     domain_dict = {}
+    
+    paths = [
+        "GeoLite2-City.mmdb",
+        "GeoLite2-City_20241011/GeoLite2-City.mmdb",
+        "GeoLite2-City_20241011/GeoLite2-City_20241011/GeoLite2-City.mmdb"
+    ]
+    
+    pathExists = False
 
-    mmdb_reader = maxminddb.open_database("GeoLite2-City.mmdb")
-
+    for path in paths:
+        if os.path.exists(path):
+            try:
+                mmdb_reader = maxminddb.open_database(path)
+                pathExists = True
+            except:
+                pass
+    if not pathExists:
+        sys.stderr.write("Failed to find GeoLite-City.mmdb.\nDid you unzip the GeoLite2-City database into this directory?")
+        sys.stderr.write("exiting...")
+        return
+    
     for domain in domain_list:
         domain = domain.strip('\n')
         scanner_list = {"scan_time": time.time()}
