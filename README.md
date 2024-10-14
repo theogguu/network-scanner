@@ -21,11 +21,12 @@ The scanner probes for the following:
 - "geo_locations": the approximate geographical location of the IPv4 addresses, as listed by the [MaxMind IP Geolocation database](https://maxminddb.readthedocs.io/en/latest/)
 
 ## Installation
-You will need to install the [maxminddb](https://maxminddb.readthedocs.io/en/latest/) and [urllib3](https://urllib3.readthedocs.io/en/stable/) libraries to run the scanner.
+You will need to unzip `GeoLite2-City_20241011.tar.gz` to run the scanner.
 
-`$ pip install maxminddb`
+`$ python3 -m venv .venv`
+`$ . .venv/Scripts/activate`
+`$ pip install -r requirements.txt`
 
-`$ pip install urllib3`
 
 Additionally, for geo_locations function, you will need to install a [MaxMind IP Geolocation database](https://networks.cs.northwestern.edu/CS340-w23/project/project%204%20inputs/GeoLite2-City_20201103.tar.gz) (WARNING: this link installs the database). Untar it and place the .mmdb file in the project directory.
 
